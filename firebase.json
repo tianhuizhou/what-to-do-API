@@ -13,6 +13,9 @@
     "source": "functions"
   },
   "emulators": {
+    "auth": {
+      "port": 3000
+    },
     "functions": {
       "port": 5001
     },

@@ -18,8 +18,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(auth_middleware)
-
 // import routes
+
 // const usersRouter = require('./route/users');
 // const tasksRouter = require('./route/tasks');
 
@@ -31,16 +31,11 @@ app.use(auth_middleware)
 
 // RESTful API
 // export const api = functions.https.onRequest(app)
-
-// Firestore function events
-export const recordUpdatedTime = functions.firestore
-  .document('/projects/{documentId}')
-  .onUpdate((snap: any, context: any) => {
-    console.log(snap)
-    return Promise.resolve()
-  })
-
 export const helloWorld = functions.https.onRequest((request: any, response: any) => {
   functions.logger.info('Hello logs!', { structuredData: true })
   response.send('Hello from Firebase!')
 })
+
+// Firestore function events
+exports.ProjectCollection = require('./firestore-event/project_collection')
+exports.UserCollection = require('./firestore-event/user_collection')
