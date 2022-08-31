@@ -27,3 +27,10 @@ declare interface UserModel {
   id?: string
   name: string
 }
+
+declare interface FirestoreCollectionEvent {
+  onCreate?: () => Promise<WriteResult>
+  onUpdate?: () => Promise<WriteResult>
+  onWrite?: () => void
+  onDelete?: () => void
+}

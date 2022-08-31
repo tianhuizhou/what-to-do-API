@@ -3,6 +3,7 @@
 // // https://firebase.google.com/docs/functions/typescript
 //
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const functions = require('firebase-functions')
 const express = require('express')
 const cors = require('cors')
@@ -31,10 +32,10 @@ app.use(auth_middleware)
 
 // RESTful API
 // export const api = functions.https.onRequest(app)
-export const helloWorld = functions.https.onRequest((request: any, response: any) => {
-  functions.logger.info('Hello logs!', { structuredData: true })
-  response.send('Hello from Firebase!')
-})
+// export const helloWorld = functions.https.onRequest((request: any, response: any) => {
+//   functions.logger.info('Hello logs!', { structuredData: true })
+//   response.send('Hello from Firebase!')
+// })
 
 // Firestore function events
 exports.ProjectCollection = require('./firestore-event/project_collection')
