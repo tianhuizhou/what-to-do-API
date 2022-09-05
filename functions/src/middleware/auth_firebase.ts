@@ -2,8 +2,8 @@
 // The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
 // `Authorization: Bearer <Firebase ID Token>`.
 // when decoded successfully, the ID Token content will be added as `req.user`.
-// const functions = require('firebase-functions')
-// const admin = require('firebase-admin')
+const functions = require('firebase-functions')
+const admin = require('firebase-admin')
 
 const validateFirebaseIdToken = async (
   req: { headers: { authorization: string }; cookies: { __session: unknown }; user: unknown },

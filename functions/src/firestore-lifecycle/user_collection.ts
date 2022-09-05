@@ -9,6 +9,10 @@ class UserCollection implements FirestoreCollectionEvent {
     const new_user = { name: user.displayName, email: user.email, uid: user.uid }
     return firestore.collection('users').doc(user.uid).set(new_user)
   })
+
+  onDelete = functions.auth.user().onDelete((user: UserRecord) => {
+    return firestore.collection('users').doc(user.uid).delete()
+  })
 }
 
 module.exports = new UserCollection()
