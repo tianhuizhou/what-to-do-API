@@ -9,7 +9,6 @@ user_router.route('/').get(async (req: Request, res: Response) => {
   res.status(200).json({ 'data': await UserService.find_all() })
 })
 user_router.route('/:id').get(async (req: Request, res: Response) => {
-  console.log('by id')
   const user_id: string = req.params.id
   res.status(200).json({ 'data': await UserService.find_by_id(user_id) })
 })
