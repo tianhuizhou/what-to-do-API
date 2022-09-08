@@ -1,26 +1,24 @@
-// import * as functions from "firebase-functions";
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
+// Initiate Remote database connection
+import { DatabaseConnection } from './config/database_connection'
+DatabaseConnection.getInstance()
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const functions = require('firebase-functions')
 const express = require('express')
 const cors = require('cors')
 
+const app = express()
+
 const admin = require('firebase-admin')
 admin.initializeApp()
 
-// const auth_middleware = require('./middleware/auth_firebase')
-
-const app = express()
-
-// middleware
 app.use(cors())
 app.use(express.json())
-// app.use(auth_middleware)
-// import routes
 
+// middleware
+const auth_middleware = require('./middleware/auth_firebase')
+if (process.env.NODE_ENV !== 'development') app.use(auth_middleware)
+
+// import routes
 const usersRouter = require('./firestore-resetful-api/route/user')
 // const tasksRouter = require('./route/tasks');
 

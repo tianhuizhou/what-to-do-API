@@ -1,6 +1,6 @@
-// /*
-//  * User service: define all the services for endpoints
-//  */
+/*
+ * User service: define all the services for endpoints
+ */
 const UserRepository = require('../repository/user_repository')
 
 class UserService {

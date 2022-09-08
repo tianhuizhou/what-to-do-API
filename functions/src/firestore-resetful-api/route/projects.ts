@@ -1,5 +1,7 @@
-// const project_router = require('express').Router()
-
+import { Request, Response } from 'express'
+// eslint-disable-next-line new-cap
+const project_router = require('express').Router()
+const ProjectService = require('../service/project_service')
 /* GET */
 // Get all project
 // project_router.route('/').get((req: any, res: any) => {

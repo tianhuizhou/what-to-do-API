@@ -13,29 +13,29 @@ datasource db {
 }
 
 model Project {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  name       String   @db.VarChar(255)
-  descrition String?
-  visibility Boolean  @default(false)
-  borads     Board[]
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  name        String   @db.VarChar(255)
+  description String?
+  visibility  String  @default("public")
+  borads      Board[]
 }
 
 model Board {
-  id         Int      @id @default(autoincrement())
-  name       String   @db.VarChar(255)
-  theme      String?
-  tasks      Task[]
-  project    Project  @relation(fields: [project_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  project_id Int
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  theme       String?
+  tasks       Task[]
+  project     Project  @relation(fields: [project_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  project_id  Int
 }
 
 model Task {
-  id         Int      @id @default(autoincrement())
-  name       String   @db.VarChar(255)
-  priority   String?
-  descrition String?
-  borad      Board    @relation(fields: [borad_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  borad_id   Int
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  priority    String?
+  description String?
+  borad       Board    @relation(fields: [borad_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  borad_id    Int
 }

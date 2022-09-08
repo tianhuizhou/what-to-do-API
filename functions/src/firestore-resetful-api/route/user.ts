@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 // eslint-disable-next-line new-cap
 const user_router = require('express').Router()
-const UserService = require('../service/UserService')
+const UserService = require('../service/user_service')
 
 /* GET */
 // Get all users
