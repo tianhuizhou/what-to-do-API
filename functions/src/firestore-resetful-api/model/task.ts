@@ -3,16 +3,16 @@
  *
  * */
 class Task implements TaskModel {
-  readonly id: string
+  readonly id?: number
   name: string
   priority: string
-  description: string
+  description?: string
 
-  constructor(args: TaskModel) {
-    this.id = args.id || ''
+  constructor(args: Partial<TaskModel>) {
+    this.id = args.id
     this.name = args.name || ''
     this.priority = args.priority || ''
-    this.description = args.description || ''
+    this.description = args.description
   }
 }
 

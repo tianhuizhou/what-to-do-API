@@ -1,5 +1,5 @@
 import { DatabaseConnection } from '../../config/database_connection'
-import { Project } from '../model/project'
+
 const prisma = DatabaseConnection.getInstance().get_prisma
 
 class ProjectRepository {
@@ -13,25 +13,25 @@ class ProjectRepository {
       },
     })
   }
-  static async create(project: Project) {
+  static async create(project: Omit<ProjectModel, 'id'>) {
     return await prisma.project.create({
-      data: project,
+      data: { ...project },
     })
   }
-  static async update(project: Project, args: Partial<Project>) {
+  static async update(project_id: number, args: Partial<Omit<ProjectModel, 'id'>>) {
     return await prisma.project.update({
       data: {
         ...args,
       },
       where: {
-        id: project.id,
+        id: project_id,
       },
     })
   }
-  static async delete(project: Project) {
+  static async delete(project_id: number) {
     await prisma.project.delete({
       where: {
-        id: project.id,
+        id: project_id,
       },
     })
   }

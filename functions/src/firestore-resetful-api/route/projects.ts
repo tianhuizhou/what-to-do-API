@@ -2,22 +2,42 @@ import { Request, Response } from 'express'
 // eslint-disable-next-line new-cap
 const project_router = require('express').Router()
 const ProjectService = require('../service/project_service')
+
 /* GET */
 // Get all project
-// project_router.route('/').get((req: any, res: any) => {
-//   res.status(200).json({ 'msg': 'yea' })
-// })
-//
-// /* POST */
-// // Upsert new project
-// project_router.route('/').post((req: any, res: any) => {
-//   res.status(200).json({ 'msg': 'yea' })
-// })
-//
-// /* DELETE */
-// // Delete project
-// project_router.route('/').delete((req: any, res: any) => {
-//   res.status(200).json({ 'msg': 'yea' })
-// })
-//
-// module.exports = project_router
+project_router.route('/').get(async (req: Request, res: Response) => {
+  const project_list = await ProjectService.getProjectList()
+  res.status(200).json({ 'data': project_list })
+})
+
+project_router.route('/:id').get(async (req: Request, res: Response) => {
+  const project_id: number = parseInt(req.params.id)
+  const project = await ProjectService.getProject(project_id)
+  res.status(200).json({ 'data': project })
+})
+
+/* POST */
+// Create new project
+project_router.route('/').post(async (req: Request, res: Response) => {
+  console.log('call to create project')
+  const project = await ProjectService.createProject(req.body)
+  console.log('project created')
+  res.status(201).json({ 'data': project })
+})
+
+/* POST */
+// Create new project
+project_router.route('/:id').put(async (req: Request, res: Response) => {
+  const project_id: number = parseInt(req.params.id)
+  const project = await ProjectService.updateProject(project_id, req.body)
+  res.status(201).json({ 'data': project })
+})
+/* DELETE */
+// Delete project
+project_router.route('/').delete(async (req: Request, res: Response) => {
+  const project_id: number = parseInt(req.params.id)
+  await ProjectService.deleteProject(project_id)
+  res.status(204).json({ 'msg': 'Delete successfully' })
+})
+
+module.exports = project_router

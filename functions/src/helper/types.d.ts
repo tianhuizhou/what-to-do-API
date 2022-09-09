@@ -2,11 +2,10 @@
 declare interface ProjectModel {
   id?: number
   name: string
-  visibility: string
+  visibility?: string
   description?: string
   favorite?: boolean
-  boards: BoardModel[]
-  users: UserModel[]
+  boards?: BoardModel[]
 }
 
 declare interface BoardModel {
@@ -19,7 +18,7 @@ declare interface BoardModel {
 declare interface TaskModel {
   id?: number
   name: string
-  priority: string
+  priority?: string
   description?: string
 }
 
@@ -34,4 +33,9 @@ declare interface FirestoreCollectionEvent {
   onUpdate?: () => Promise<WriteResult>
   onWrite?: () => void
   onDelete?: () => void
+}
+
+declare interface ErrorException {
+  msg?: string
+  status?: number
 }

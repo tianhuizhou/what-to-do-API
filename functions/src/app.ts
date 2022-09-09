@@ -1,4 +1,5 @@
 // Initiate Remote database connection
+import 'express-async-errors'
 import { DatabaseConnection } from './config/database_connection'
 DatabaseConnection.getInstance()
 
@@ -14,17 +15,22 @@ admin.initializeApp()
 app.use(cors())
 app.use(express.json())
 
-// middleware
-const auth_middleware = require('./middleware/auth_firebase')
-if (process.env.NODE_ENV !== 'development') app.use(auth_middleware)
+// Middleware
+// const auth_middleware = require('./middleware/auth_firebase')
+// if (process.env.NODE_ENV !== 'development') app.use(auth_middleware)
 
-// import routes
-const usersRouter = require('./firestore-resetful-api/route/user')
+// Routes
+const users_router = require('./firestore-resetful-api/route/users')
+const projects_router = require('./firestore-resetful-api/route/projects')
 // const tasksRouter = require('./route/tasks');
 
-// Setup to routes
-app.use('/users', usersRouter)
+app.use('/users', users_router)
+app.use('/projects', projects_router)
 // app.use('/tasks', tasksRouter);
+
+// Error handler middleware
+const error_handler = require('./middleware/error_handler')
+app.use(error_handler)
 
 // export to Firebase Functions
 

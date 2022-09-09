@@ -5,19 +5,28 @@
 class Project implements ProjectModel {
   readonly id?: number
   name: string
-  visibility: string
+  visibility?: string
   description?: string
-  boards: BoardModel[]
-  users: UserModel[]
+  favorite?: boolean
+  boards?: BoardModel[]
 
-  constructor(args: ProjectModel) {
+  constructor(args: Partial<ProjectModel>) {
     this.id = args.id
-    this.name = args.name || ''
+    this.name = args.name || 'Random Project'
     this.visibility = args.visibility || 'public'
-    this.description = args.description
-    this.boards = args.boards || []
-    this.users = args.users || []
+    this.description = args.description || ''
+    this.favorite = args.favorite || false
+    this.boards = args.boards
+  }
+
+  get sql_dto() {
+    return {
+      'name': this.name,
+      'visibility': this.visibility,
+      'description': this.description,
+      'favorite': this.favorite,
+    }
   }
 }
 
-export { Project }
+export default Project
