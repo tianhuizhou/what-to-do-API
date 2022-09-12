@@ -9,13 +9,15 @@ board_router.route('/').post(async (req: Request, res: Response) => {
   const board = await BoardService.createBoard(req.body)
   res.status(201).json({ 'data': board })
 })
+
 /* PUT */
 // Update board
 board_router.route('/:id').put(async (req: Request, res: Response) => {
   const board_id: number = parseInt(req.params.id)
-  const project = await BoardService.updateBoard(board_id, req.body)
-  res.status(201).json({ 'data': project })
+  const board = await BoardService.updateBoard(board_id, req.body)
+  res.status(201).json({ 'data': board })
 })
+
 /* DELETE */
 // Delete board
 board_router.route('/:id').delete(async (req: Request, res: Response) => {

@@ -10,11 +10,13 @@ class BoardService {
     if (!board) throw new BadRequestRestException('Board')
     return board
   }
+
   static async updateBoard(id: number, dto: Partial<{ name: string; theme: string; project_id: number }>) {
     const board = await BoardRepository.update(id, dto)
     if (!board) throw new BadRequestRestException('Board')
     return board
   }
+
   static async deleteBoard(id: number) {
     await BoardRepository.delete(id)
   }

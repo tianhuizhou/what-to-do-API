@@ -26,6 +26,7 @@ class BoardRepository {
       },
     })
   }
+
   static async delete(board_id: number) {
     await prisma.board.delete({
       where: {
