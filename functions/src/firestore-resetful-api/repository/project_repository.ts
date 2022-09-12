@@ -11,14 +11,24 @@ class ProjectRepository {
       where: {
         id: project_id,
       },
+      include: {
+        boards: {
+          include: {
+            tasks: true,
+          },
+        },
+      },
     })
   }
-  static async create(project: Omit<ProjectModel, 'id'>) {
+  static async create(project: { name: string; visibility: string; description: string; favorite: boolean }) {
     return await prisma.project.create({
       data: { ...project },
     })
   }
-  static async update(project_id: number, args: Partial<Omit<ProjectModel, 'id'>>) {
+  static async update(
+    project_id: number,
+    args: Partial<{ name: string; visibility: string; description: string; favorite: boolean; boards: { set: [] } }>,
+  ) {
     return await prisma.project.update({
       data: {
         ...args,

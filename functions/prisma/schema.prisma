@@ -20,7 +20,8 @@ model Project {
   description String?   @default("")
   visibility  String    @default("public")
   favorite    Boolean   @default(false)
-  borads      Board[]
+  boards      Board[]
+  session_uid String?
 }
 
 model Board {
@@ -37,6 +38,6 @@ model Task {
   name        String    @db.VarChar(255)
   priority    String?
   description String?   @default("")
-  borad       Board     @relation(fields: [borad_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  borad_id    Int
+  board       Board     @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  board_id    Int
 }

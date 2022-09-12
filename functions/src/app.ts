@@ -17,16 +17,16 @@ app.use(express.json())
 
 // Middleware
 // const auth_middleware = require('./middleware/auth_firebase')
-// if (process.env.NODE_ENV !== 'development') app.use(auth_middleware)
+// if (location.hostname === 'localhost') app.use(auth_middleware)
 
 // Routes
 const users_router = require('./firestore-resetful-api/route/users')
 const projects_router = require('./firestore-resetful-api/route/projects')
-// const tasksRouter = require('./route/tasks');
+const board_router = require('./firestore-resetful-api/route/boards')
 
 app.use('/users', users_router)
 app.use('/projects', projects_router)
-// app.use('/tasks', tasksRouter);
+app.use('/boards', board_router)
 
 // Error handler middleware
 const error_handler = require('./middleware/error_handler')

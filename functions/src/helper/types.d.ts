@@ -6,13 +6,15 @@ declare interface ProjectModel {
   description?: string
   favorite?: boolean
   boards?: BoardModel[]
+  session_uid?: string
 }
 
 declare interface BoardModel {
   id?: number
   name: string
   theme?: string
-  tasks: TaskModel[]
+  project_id: number
+  tasks?: TaskModel[]
 }
 
 declare interface TaskModel {
@@ -20,6 +22,7 @@ declare interface TaskModel {
   name: string
   priority?: string
   description?: string
+  board_id: number
 }
 
 declare interface UserModel {

@@ -19,14 +19,12 @@ project_router.route('/:id').get(async (req: Request, res: Response) => {
 /* POST */
 // Create new project
 project_router.route('/').post(async (req: Request, res: Response) => {
-  console.log('call to create project')
   const project = await ProjectService.createProject(req.body)
-  console.log('project created')
   res.status(201).json({ 'data': project })
 })
 
-/* POST */
-// Create new project
+/* PUT */
+// Update new project
 project_router.route('/:id').put(async (req: Request, res: Response) => {
   const project_id: number = parseInt(req.params.id)
   const project = await ProjectService.updateProject(project_id, req.body)
@@ -34,7 +32,7 @@ project_router.route('/:id').put(async (req: Request, res: Response) => {
 })
 /* DELETE */
 // Delete project
-project_router.route('/').delete(async (req: Request, res: Response) => {
+project_router.route('/:id').delete(async (req: Request, res: Response) => {
   const project_id: number = parseInt(req.params.id)
   await ProjectService.deleteProject(project_id)
   res.status(204).json({ 'msg': 'Delete successfully' })
