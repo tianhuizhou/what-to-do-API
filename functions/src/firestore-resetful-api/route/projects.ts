@@ -30,6 +30,7 @@ project_router.route('/:id').put(async (req: Request, res: Response) => {
   const project = await ProjectService.updateProject(project_id, req.body)
   res.status(201).json({ 'data': project })
 })
+
 /* DELETE */
 // Delete project
 project_router.route('/:id').delete(async (req: Request, res: Response) => {

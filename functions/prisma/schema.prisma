@@ -21,7 +21,7 @@ model Project {
   visibility  String    @default("public")
   favorite    Boolean   @default(false)
   boards      Board[]
-  session_uid String?
+  session_uid String?   @default("")
 }
 
 model Board {
