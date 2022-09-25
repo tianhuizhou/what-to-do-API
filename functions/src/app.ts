@@ -16,8 +16,8 @@ app.use(cors())
 app.use(express.json())
 
 // Middleware
-// const auth_middleware = require('./middleware/auth_firebase')
-// if (location.hostname === 'localhost') app.use(auth_middleware)
+const auth_middleware = require('./middleware/auth_firebase')
+if (process.env.FUNCTIONS_EMULATOR !== 'true') app.use(auth_middleware)
 
 // Routes
 const users_router = require('./firestore-resetful-api/route/users')
