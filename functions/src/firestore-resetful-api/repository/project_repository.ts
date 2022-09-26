@@ -7,10 +7,10 @@ class ProjectRepository {
     return await prisma.project.findMany()
   }
 
-  static async findById(project_id: number) {
+  static async findById(id: number) {
     return await prisma.project.findUnique({
       where: {
-        id: project_id,
+        id: id,
       },
       include: {
         boards: {
@@ -29,23 +29,23 @@ class ProjectRepository {
   }
 
   static async update(
-    project_id: number,
-    args: Partial<{ name: string; visibility: string; description: string; favorite: boolean; boards: { set: [] } }>,
+    id: number,
+    args: Partial<{ name: string; visibility: string; description: string; favorite: boolean; board_order: [] }>,
   ) {
     return await prisma.project.update({
       data: {
         ...args,
       },
       where: {
-        id: project_id,
+        id: id,
       },
     })
   }
 
-  static async delete(project_id: number) {
+  static async delete(id: number) {
     await prisma.project.delete({
       where: {
-        id: project_id,
+        id: id,
       },
     })
   }

@@ -3,10 +3,17 @@ import { DatabaseConnection } from '../../config/database_connection'
 const prisma = DatabaseConnection.getInstance().get_prisma
 
 class TaskRepository {
+  static async findAll() {
+    return await prisma.task.findMany({})
+  }
+
   static async findById(task_id: number) {
     return await prisma.task.findUnique({
       where: {
         id: task_id,
+      },
+      include: {
+        board: true,
       },
     })
   }
@@ -36,6 +43,9 @@ class TaskRepository {
       },
       where: {
         id: task_id,
+      },
+      include: {
+        board: true,
       },
     })
   }

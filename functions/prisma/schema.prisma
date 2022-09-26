@@ -21,7 +21,8 @@ model Project {
   visibility  String    @default("public")
   favorite    Boolean   @default(false)
   boards      Board[]
-  session_uid String?   @default("")
+  board_order Json?     @default("[]")
+  session_uid String    @default(uuid())
 }
 
 model Board {
@@ -29,6 +30,7 @@ model Board {
   name        String    @db.VarChar(255)
   theme       String?   @default("")
   tasks       Task[]
+  task_order  Json?     @default("[]")
   project     Project   @relation(fields: [project_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   project_id  Int
 }

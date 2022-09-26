@@ -3,6 +3,19 @@ import { Request, Response } from 'express'
 const board_router = require('express').Router()
 const BoardService = require('../service/board_service')
 
+/* GET */
+// Get all board
+board_router.route('/').get(async (req: Request, res: Response) => {
+  const board_list = await BoardService.getBoardList()
+  res.status(200).json({ 'data': board_list })
+})
+
+board_router.route('/:id').get(async (req: Request, res: Response) => {
+  const board_id: number = parseInt(req.params.id)
+  const board = await BoardService.getBoard(board_id)
+  res.status(200).json({ 'data': board })
+})
+
 /* POST */
 // Create board
 board_router.route('/').post(async (req: Request, res: Response) => {

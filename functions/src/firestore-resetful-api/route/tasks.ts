@@ -4,6 +4,12 @@ const task_router = require('express').Router()
 const TaskService = require('../service/task_service')
 
 /* GET */
+// Get all tasks
+task_router.route('/').get(async (req: Request, res: Response) => {
+  const task_list = await TaskService.getTaskList()
+  res.status(200).json({ 'data': task_list })
+})
+
 // Get task details by id
 task_router.route('/:id').get(async (req: Request, res: Response) => {
   const task_id = parseInt(req.params.id)
@@ -24,6 +30,12 @@ task_router.route('/:id').put(async (req: Request, res: Response) => {
   const task_id: number = parseInt(req.params.id)
   const task = await TaskService.updateTask(task_id, req.body)
   res.status(201).json({ 'data': task })
+})
+
+task_router.route('/move/:id').put(async (req: Request, res: Response) => {
+  const task_id: number = parseInt(req.params.id)
+  await TaskService.moveTask(task_id, req.body)
+  res.status(201).json({ 'msg': 'Moved successfully' })
 })
 
 /* DELETE */

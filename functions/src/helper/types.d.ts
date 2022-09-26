@@ -1,6 +1,6 @@
 /* Global Interface */
 declare interface ProjectModel {
-  id?: number
+  id: number
   name: string
   visibility?: string
   description?: string
@@ -10,7 +10,7 @@ declare interface ProjectModel {
 }
 
 declare interface BoardModel {
-  id?: number
+  id: number
   name: string
   theme?: string
   project_id: number
@@ -18,7 +18,7 @@ declare interface BoardModel {
 }
 
 declare interface TaskModel {
-  id?: number
+  id: number
   name: string
   priority?: string
   description?: string

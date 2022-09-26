@@ -8,10 +8,6 @@ const isEqual = require('lodash/isEqual')
 const omit = require('lodash/omit')
 
 class ProjectCollection implements FirestoreCollectionEvent {
-  onCreate = functions.firestore.document('/projects/{documentId}').onCreate((doc: QueryDocumentSnapshot) => {
-    return doc.ref.update({ id: doc.id, created_at: new Date().toISOString() })
-  })
-
   onUpdate = functions.firestore.document('/projects/{documentId}').onUpdate((snap: Change<QueryDocumentSnapshot>) => {
     const data = omit(snap.after.data(), ['updated_at', 'created_at'])
     const previous_data = omit(snap.before.data(), ['updated_at', 'created_at'])
