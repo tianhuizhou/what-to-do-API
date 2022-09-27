@@ -21,7 +21,7 @@ class ProjectService {
     const payload = pick(dto, ['name', 'visibility', 'description', 'favorite'])
     const project = await ProjectRepository.create(payload)
     if (!project) throw new BadRequestRestException('Project')
-    await ProjectService.upsertFirebaseProject(project.id)
+    ProjectService.upsertFirebaseProject(project.id).catch()
     return project
   }
 
@@ -32,7 +32,7 @@ class ProjectService {
     const payload = pick(dto, ['name', 'visibility', 'description', 'favorite', 'board_order'])
     const project = await ProjectRepository.update(id, payload)
     if (!project) throw new BadRequestRestException('Project')
-    await ProjectService.upsertFirebaseProject(project.id)
+    ProjectService.upsertFirebaseProject(project.id).catch()
     return project
   }
 

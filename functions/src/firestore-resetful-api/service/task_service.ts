@@ -34,7 +34,7 @@ class TaskService {
     const payload = pick(dto, ['name', 'priority', 'description'])
     const task = await TaskRepository.update(id, payload)
     if (!task) throw new BadRequestRestException('Task')
-    await ProjectService.upsertFirebaseProject(task.board.project_id)
+    ProjectService.upsertFirebaseProject(task.board.project_id).catch()
     return task
   }
 
