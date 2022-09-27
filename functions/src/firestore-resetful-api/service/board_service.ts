@@ -57,27 +57,20 @@ class BoardService {
     const from_board_task_order: number[] = from_board.task_order
     const delete_item_idx = from_board_task_order.findIndex((item) => item == dto.task_id)
     from_board_task_order.splice(delete_item_idx, 1)
-    const from_board_payload = {
-      task_order: from_board_task_order,
-      tasks: {
-        disconnect: { id: dto.task_id },
-      },
-    }
-    await BoardRepository.update(dto.from, from_board_payload)
+    const from_board_payload = { task_order: from_board_task_order }
+
+    await BoardRepository.update(from_board.id, from_board_payload)
 
     // 2. Disconnect the Task from Board B and update task_order of Board B
     const to_board = await BoardService.getBoard(dto.to)
     const to_board_task_order: number[] = to_board.task_order.splice(dto.pos, 0, dto.task_id)
-    const to_board_payload = {
-      task_order: to_board_task_order,
-      tasks: {
-        connect: { id: dto.task_id },
-      },
-    }
-    await BoardRepository.update(dto.to, to_board_payload)
+    to_board_task_order.splice(dto.pos, 0, dto.task_id)
+    const to_board_payload = { task_order: to_board_task_order }
+
+    await BoardRepository.update(to_board.id, to_board_payload)
 
     // to_board.project_id Should be the same as from_board.project_id
-    await ProjectService.upsertFirebaseProject(to_board.project_id)
+    ProjectService.upsertFirebaseProject(to_board.project_id).catch()
   }
 }
 

@@ -17,7 +17,7 @@ model Project {
   created_at  DateTime  @default(now())
   updated_at  DateTime? @updatedAt
   name        String    @db.VarChar(255)
-  description String?   @default("")
+  description String?   @db.VarChar(255) @default("")
   visibility  String    @default("public")
   favorite    Boolean   @default(false)
   boards      Board[]
@@ -39,7 +39,7 @@ model Task {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(255)
   priority    String?
-  description String?   @default("")
+  description String?   @db.VarChar(255) @default("")
   board       Board     @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   board_id    Int
 }

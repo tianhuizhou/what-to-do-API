@@ -50,6 +50,8 @@ class TaskService {
   }
 
   static async moveTask(id: number, dto: { old_board_id: number; new_board_id: number; new_board_position: number }) {
+    const task = await TaskRepository.update(id, { board_id: dto.new_board_id })
+    if (!task) throw new BadRequestRestException('Task')
     const payload = { 'from': dto.old_board_id, 'to': dto.new_board_id, 'task_id': id, 'pos': dto.new_board_position }
     await BoardService.moveTaskBetweenBoards(payload)
   }

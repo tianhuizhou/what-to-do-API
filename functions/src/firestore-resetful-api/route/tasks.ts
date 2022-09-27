@@ -32,6 +32,7 @@ task_router.route('/:id').put(async (req: Request, res: Response) => {
   res.status(201).json({ 'data': task })
 })
 
+// move task between board
 task_router.route('/move/:id').put(async (req: Request, res: Response) => {
   const task_id: number = parseInt(req.params.id)
   await TaskService.moveTask(task_id, req.body)

@@ -30,12 +30,15 @@ class TaskRepository {
           },
         },
       },
+      include: {
+        board: true,
+      },
     })
   }
 
   static async update(
     task_id: number,
-    args: Partial<{ name: string; priority?: string; description: string; board_id: number }>,
+    args: Partial<{ name: string; priority: string; description: string; board_id: number }>,
   ) {
     return await prisma.task.update({
       data: {
