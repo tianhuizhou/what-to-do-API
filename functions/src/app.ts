@@ -12,7 +12,9 @@ const app = express()
 const admin = require('firebase-admin')
 admin.initializeApp()
 
-app.use(cors())
+const cors_options = { allowedHeaders: ['Content-Type', 'Authorization'] }
+app.use(cors(cors_options))
+
 app.use(express.json())
 
 // Middleware
