@@ -33,7 +33,7 @@ class BoardService {
     const payload = pick(dto, ['name', 'theme', 'task_order'])
     const board = await BoardRepository.update(id, payload)
     if (!board) throw new BadRequestRestException('Board')
-    ProjectService.upsertFirebaseProject(board.project_id).catch()
+    await ProjectService.upsertFirebaseProject(board.project_id).catch()
     return board
   }
 
@@ -70,7 +70,7 @@ class BoardService {
     await BoardRepository.update(to_board.id, to_board_payload)
 
     // to_board.project_id Should be the same as from_board.project_id
-    ProjectService.upsertFirebaseProject(to_board.project_id).catch()
+    await ProjectService.upsertFirebaseProject(to_board.project_id)
   }
 }
 

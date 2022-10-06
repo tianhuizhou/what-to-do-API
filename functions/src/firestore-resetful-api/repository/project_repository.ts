@@ -32,7 +32,6 @@ class ProjectRepository {
     id: number,
     args: Partial<{ name: string; visibility: string; description: string; favorite: boolean; board_order: [] }>,
   ) {
-    console.log(args)
     return await prisma.project.update({
       data: {
         ...args,

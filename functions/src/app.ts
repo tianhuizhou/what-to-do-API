@@ -12,8 +12,8 @@ const app = express()
 const admin = require('firebase-admin')
 admin.initializeApp()
 
-const cors_options = { allowedHeaders: ['Content-Type', 'Authorization'] }
-app.use(cors(cors_options))
+// const cors_options = { allowedHeaders: ['Content-Type', 'Authorization'] }
+app.use(cors())
 
 app.use(express.json())
 
@@ -42,5 +42,4 @@ app.use(error_handler)
 export const api = functions.https.onRequest(app)
 
 // Firestore function events
-exports.ProjectCollection = require('./firestore-lifecycle/project_collection')
 exports.UserCollection = require('./firestore-lifecycle/user_collection')
