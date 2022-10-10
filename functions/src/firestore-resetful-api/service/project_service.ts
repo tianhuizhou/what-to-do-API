@@ -45,7 +45,7 @@ class ProjectService {
   static async upsertFirebaseProject(id: number) {
     const project = await ProjectService.getProject(id)
 
-    for (let board of project.boards) board = ProjectService.sortDataByOrder(board, board.task_order)
+    for (let board of project.boards) board = ProjectService.sortDataByOrder(board.tasks, board.task_order)
     project.boards = ProjectService.sortDataByOrder(project.boards, project.board_order)
 
     return firestore.collection('projects').doc(project.session_uid).set(project)
@@ -55,7 +55,7 @@ class ProjectService {
     return firestore.collection('projects').doc(session_uid).delete()
   }
 
-  private static sortDataByOrder(target: [BoardModel | ProjectModel], order: number[]) {
+  private static sortDataByOrder(target: [BoardModel | TaskModel], order: number[]) {
     const sort_list = []
     const item_ref = new Map()
     for (const item of target) item_ref.set(item.id, item)
