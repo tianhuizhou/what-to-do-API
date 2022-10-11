@@ -40,6 +40,46 @@ model Task {
   name        String    @db.VarChar(255)
   priority    String?
   description String?   @db.VarChar(255) @default("")
+  tags        TagsOnTasks[]
+  users       TaskAssignedUser[]
   board       Board     @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   board_id    Int
+  estimated_time String @db.VarChar(255) @default("")
+  due_date    String    @db.VarChar(255) @default("")
+  is_completed Boolean  @default(false)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
+}
+
+model Tag {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(20)
+  theme       String?   @default("")
+  tasks       TagsOnTasks[]
+}
+
+model TagsOnTasks {
+  task        Task      @relation(fields: [taskId], references: [id])
+  taskId      Int
+  tag         Tag       @relation(fields: [tagId], references: [id])
+  tagId       Int
+
+  @@id([tagId, taskId])
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  email       String    @db.VarChar(255)
+  user_uid    Int
+  tasks       TaskAssignedUser[]
+}
+
+model TaskAssignedUser {
+  task        Task      @relation(fields: [taskId], references: [id])
+  taskId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+
+  @@id([taskId, userId])
 }
