@@ -14,20 +14,30 @@ class TaskRepository {
       },
       include: {
         board: true,
+        tags: {
+          select: { tag: true },
+        },
       },
     })
   }
 
-  static async create(task: { name: string; priority?: string; description: string; board_id: number }) {
+  static async create(task: {
+    name: string
+    priority?: string
+    description: string
+    board_id: number
+    estimated_time: string
+    due_date: string
+  }) {
     return await prisma.task.create({
       data: {
         name: task.name,
         priority: task.priority,
         description: task.description,
+        estimated_time: task.estimated_time,
+        due_date: task.due_date,
         board: {
-          connect: {
-            id: task.board_id,
-          },
+          connect: { id: task.board_id },
         },
       },
       include: {

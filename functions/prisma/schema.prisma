@@ -18,6 +18,7 @@ model Project {
   updated_at  DateTime? @updatedAt
   name        String    @db.VarChar(255)
   description String?   @db.VarChar(255) @default("")
+  background  String    @default("")
   visibility  String    @default("public")
   favorite    Boolean   @default(false)
   boards      Board[]
@@ -59,12 +60,12 @@ model Tag {
 }
 
 model TagsOnTasks {
-  task        Task      @relation(fields: [taskId], references: [id])
-  taskId      Int
-  tag         Tag       @relation(fields: [tagId], references: [id])
-  tagId       Int
+  task        Task      @relation(fields: [task_id], references: [id])
+  task_id     Int
+  tag         Tag       @relation(fields: [tag_id], references: [id])
+  tag_id      Int
 
-  @@id([tagId, taskId])
+  @@id([tag_id, task_id])
 }
 
 model User {
@@ -76,10 +77,10 @@ model User {
 }
 
 model TaskAssignedUser {
-  task        Task      @relation(fields: [taskId], references: [id])
-  taskId      Int
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int
+  task        Task      @relation(fields: [task_id], references: [id])
+  task_id      Int
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id      Int
 
-  @@id([taskId, userId])
+  @@id([task_id, user_id])
 }

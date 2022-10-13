@@ -17,8 +17,14 @@ class ProjectService {
     return project
   }
 
-  static async createProject(dto: { name: string; visibility: string; description: string; favorite: boolean }) {
-    const payload = pick(dto, ['name', 'visibility', 'description', 'favorite'])
+  static async createProject(dto: {
+    name: string
+    visibility: string
+    description: string
+    favorite: boolean
+    background: string
+  }) {
+    const payload = pick(dto, ['name', 'visibility', 'description', 'favorite', 'background'])
     const project = await ProjectRepository.create(payload)
     if (!project) throw new BadRequestRestException('Project')
     await ProjectService.upsertFirebaseProject(project.id)
@@ -27,9 +33,16 @@ class ProjectService {
 
   static async updateProject(
     id: number,
-    dto: Partial<{ name: string; visibility: string; description: string; favorite: boolean; board_order: number[] }>,
+    dto: Partial<{
+      name: string
+      visibility: string
+      description: string
+      favorite: boolean
+      board_order: number[]
+      background: string
+    }>,
   ) {
-    const payload = pick(dto, ['name', 'visibility', 'description', 'favorite', 'board_order'])
+    const payload = pick(dto, ['name', 'visibility', 'description', 'favorite', 'board_order', 'background'])
     const project = await ProjectRepository.update(id, payload)
     if (!project) throw new BadRequestRestException('Project')
     await ProjectService.upsertFirebaseProject(project.id)

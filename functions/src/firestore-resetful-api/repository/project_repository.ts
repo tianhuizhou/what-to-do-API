@@ -15,14 +15,26 @@ class ProjectRepository {
       include: {
         boards: {
           include: {
-            tasks: true,
+            tasks: {
+              include: {
+                tags: {
+                  select: { tag: true },
+                },
+              },
+            },
           },
         },
       },
     })
   }
 
-  static async create(project: { name: string; visibility: string; description: string; favorite: boolean }) {
+  static async create(project: {
+    name: string
+    visibility: string
+    description: string
+    favorite: boolean
+    background: string
+  }) {
     return await prisma.project.create({
       data: { ...project },
     })
@@ -30,7 +42,14 @@ class ProjectRepository {
 
   static async update(
     id: number,
-    args: Partial<{ name: string; visibility: string; description: string; favorite: boolean; board_order: [] }>,
+    args: Partial<{
+      name: string
+      visibility: string
+      description: string
+      favorite: boolean
+      board_order: []
+      background: string
+    }>,
   ) {
     return await prisma.project.update({
       data: {

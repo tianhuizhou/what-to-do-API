@@ -26,11 +26,13 @@ const users_router = require('./firestore-resetful-api/route/users')
 const projects_router = require('./firestore-resetful-api/route/projects')
 const board_router = require('./firestore-resetful-api/route/boards')
 const task_router = require('./firestore-resetful-api/route/tasks')
+const tag_router = require('./firestore-resetful-api/route/tags')
 
 app.use('/users', users_router)
 app.use('/projects', projects_router)
 app.use('/boards', board_router)
 app.use('/tasks', task_router)
+app.use('/tags', tag_router)
 
 // Error handler middleware
 const error_handler = require('./middleware/error_handler')
