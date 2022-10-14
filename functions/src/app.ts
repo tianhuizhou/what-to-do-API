@@ -22,11 +22,11 @@ const auth_middleware = require('./middleware/auth_firebase')
 if (process.env.FUNCTIONS_EMULATOR !== 'true') app.use(auth_middleware)
 
 // Routes
-const users_router = require('./firestore-resetful-api/route/users')
-const projects_router = require('./firestore-resetful-api/route/projects')
-const board_router = require('./firestore-resetful-api/route/boards')
-const task_router = require('./firestore-resetful-api/route/tasks')
-const tag_router = require('./firestore-resetful-api/route/tags')
+const users_router = require('./resetful-api/route/users')
+const projects_router = require('./resetful-api/route/projects')
+const board_router = require('./resetful-api/route/boards')
+const task_router = require('./resetful-api/route/tasks')
+const tag_router = require('./resetful-api/route/tags')
 
 app.use('/users', users_router)
 app.use('/projects', projects_router)

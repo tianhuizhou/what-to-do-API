@@ -1,7 +1,7 @@
 import { UserRecord } from 'firebase-functions/v1/auth'
 
 const functions = require('firebase-functions')
-const UserRepository = require('../firestore-resetful-api/repository/user_repository')
+const UserRepository = require('../resetful-api/repository/user_repository')
 
 class OAuthService implements FirestoreCollectionEvent {
   onCreate = functions.auth.user().onCreate((user: UserRecord) => {

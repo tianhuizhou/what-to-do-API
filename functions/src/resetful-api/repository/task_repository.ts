@@ -17,6 +17,14 @@ class TaskRepository {
         tags: {
           select: { tag: true },
         },
+        users: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            photo_b64: true,
+          },
+        },
       },
     })
   }
@@ -68,6 +76,30 @@ class TaskRepository {
       where: {
         id: task_id,
       },
+    })
+  }
+
+  static async assignTask(id: number, user_id: number) {
+    return await prisma.task.update({
+      data: {
+        users: {
+          connect: [{ 'id': user_id }],
+        },
+      },
+      where: { id: id },
+      include: { board: true },
+    })
+  }
+
+  static async unassignTask(id: number, user_id: number) {
+    return await prisma.task.update({
+      data: {
+        users: {
+          disconnect: { 'id': user_id },
+        },
+      },
+      where: { id: id },
+      include: { board: true },
     })
   }
 }

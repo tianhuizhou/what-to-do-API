@@ -39,6 +39,19 @@ task_router.route('/move/:id').put(async (req: Request, res: Response) => {
   res.status(201).json({ 'msg': 'Moved successfully' })
 })
 
+// Task assignment/unassignment
+task_router.route('/assign/:id').put(async (req: Request, res: Response) => {
+  const task_id: number = parseInt(req.params.id)
+  await TaskService.assignTaskToUser(task_id, req.body)
+  res.status(201).json({ 'msg': 'Assign user successfully' })
+})
+
+task_router.route('/unassign/:id').put(async (req: Request, res: Response) => {
+  const task_id: number = parseInt(req.params.id)
+  await TaskService.unassignTaskFromUser(task_id, req.body)
+  res.status(201).json({ 'msg': 'Unassign user successfully' })
+})
+
 /* DELETE */
 // Delete task
 task_router.route('/:id').delete(async (req: Request, res: Response) => {

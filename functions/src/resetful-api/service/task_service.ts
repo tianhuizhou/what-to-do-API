@@ -75,6 +75,21 @@ class TaskService {
     const payload = { 'from': dto.old_board_id, 'to': dto.new_board_id, 'task_id': id, 'pos': dto.new_board_position }
     await BoardService.moveTaskBetweenBoards(payload)
   }
+
+  static async assignTaskToUser(id: number, dto: { user: number }) {
+    const task = await TaskRepository.assignTask(id, dto.user)
+    if (!task) throw new BadRequestRestException('Task')
+    await ProjectService.upsertFirebaseProject(task.board.project_id)
+    /* TODO: Also trigger Email notification for */
+    return task
+  }
+
+  static async unassignTaskFromUser(id: number, dto: { user: number }) {
+    const task = await TaskRepository.unassignTask(id, dto.user)
+    if (!task) throw new BadRequestRestException('Task')
+    await ProjectService.upsertFirebaseProject(task.board.project_id)
+    return task
+  }
 }
 
 module.exports = TaskService
