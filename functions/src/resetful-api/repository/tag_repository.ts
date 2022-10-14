@@ -39,6 +39,15 @@ class TagRepository {
   }
 
   static async delete(tag_id: number) {
+    await prisma.tag.update({
+      data: {
+        tasks: { set: [] },
+      },
+      where: {
+        id: tag_id,
+      },
+    })
+
     await prisma.tag.delete({
       where: {
         id: tag_id,

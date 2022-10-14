@@ -41,7 +41,7 @@ model Task {
   name        String    @db.VarChar(255)
   priority    String?
   description String?   @db.VarChar(255) @default("")
-  tags        TagsOnTasks[]
+  tags        Tag[]
   users       User[]
   board       Board     @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   board_id    Int
@@ -56,16 +56,7 @@ model Tag {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(20)
   theme       String?   @default("")
-  tasks       TagsOnTasks[]
-}
-
-model TagsOnTasks {
-  task        Task      @relation(fields: [task_id], references: [id])
-  task_id     Int
-  tag         Tag       @relation(fields: [tag_id], references: [id])
-  tag_id      Int
-
-  @@id([tag_id, task_id])
+  tasks       Task[]
 }
 
 model User {

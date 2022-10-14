@@ -17,9 +17,7 @@ class ProjectRepository {
           include: {
             tasks: {
               include: {
-                tags: {
-                  select: { tag: true },
-                },
+                tags: true,
               },
             },
           },

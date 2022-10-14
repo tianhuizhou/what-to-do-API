@@ -5,7 +5,6 @@ import { BadRequestRestException, NotFoundRestException } from '../../helper/err
 const TaskRepository = require('../repository/task_repository')
 const BoardService = require('./board_service')
 const ProjectService = require('./project_service')
-const TagService = require('./tag_service')
 const pick = require('lodash/pick')
 
 class TaskService {
@@ -47,9 +46,11 @@ class TaskService {
       estimated_time: string
       due_date: string
       is_completed: boolean
+      tags: [{ id: number }]
     }>,
   ) {
     const payload = pick(dto, ['name', 'priority', 'description', 'estimated_time', 'due_date', 'is_completed'])
+    if (dto.tags) payload.tags = { set: dto.tags }
     const task = await TaskRepository.update(id, payload)
     if (!task) throw new BadRequestRestException('Task')
     await ProjectService.upsertFirebaseProject(task.board.project_id)
@@ -60,8 +61,6 @@ class TaskService {
     const task = await TaskService.getTask(id)
     await TaskRepository.delete(id)
 
-    // Delete tag_task relation
-    TagService.unassignTagByTask(id).catch((err: any) => console.error(err))
     // Delete the task's id from the task_order in the border
     const task_order: number[] = task.board.task_order
     const delete_item_idx = task_order.findIndex((item) => item == id)

@@ -63,6 +63,15 @@ class UserRepository {
   }
 
   static async delete(uid: string) {
+    await prisma.user.update({
+      data: {
+        tasks: { set: [] },
+      },
+      where: {
+        user_uid: uid,
+      },
+    })
+
     await prisma.user.delete({
       where: {
         user_uid: uid,

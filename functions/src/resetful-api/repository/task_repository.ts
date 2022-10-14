@@ -14,9 +14,7 @@ class TaskRepository {
       },
       include: {
         board: true,
-        tags: {
-          select: { tag: true },
-        },
+        tags: true,
         users: {
           select: {
             id: true,
@@ -36,6 +34,7 @@ class TaskRepository {
     board_id: number
     estimated_time: string
     due_date: string
+    tags?: [{ 'id': number }]
   }) {
     return await prisma.task.create({
       data: {
@@ -47,6 +46,9 @@ class TaskRepository {
         board: {
           connect: { id: task.board_id },
         },
+        tags: {
+          connect: task.tags ?? [],
+        },
       },
       include: {
         board: true,
@@ -56,7 +58,15 @@ class TaskRepository {
 
   static async update(
     task_id: number,
-    args: Partial<{ name: string; priority: string; description: string; board_id: number }>,
+    args: Partial<{
+      name: string
+      priority: string
+      description: string
+      board_id: number
+      estimated_time: string
+      due_date: string
+      tags: { set: [{ id: number }] }
+    }>,
   ) {
     return await prisma.task.update({
       data: {
@@ -72,6 +82,17 @@ class TaskRepository {
   }
 
   static async delete(task_id: number) {
+    // Remove relations N-M
+    await prisma.task.update({
+      data: {
+        tags: { set: [] },
+        users: { set: [] },
+      },
+      where: {
+        id: task_id,
+      },
+    })
+
     await prisma.task.delete({
       where: {
         id: task_id,

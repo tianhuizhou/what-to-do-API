@@ -23,18 +23,6 @@ tag_router.route('/').post(async (req: Request, res: Response) => {
   res.status(201).json({ 'data': tag })
 })
 
-// Assign tag to task
-tag_router.route('/assign').post(async (req: Request, res: Response) => {
-  const tag_task = await TagService.assignTag(req.body)
-  res.status(201).json({ 'data': tag_task })
-})
-
-// Unassign tag to task
-tag_router.route('/unassign').post(async (req: Request, res: Response) => {
-  await TagService.unassignTag(req.body)
-  res.status(204).json({ 'msg': 'Tag is removed from task successfully' })
-})
-
 /* PUT */
 // Update tag information
 tag_router.route('/:id').put(async (req: Request, res: Response) => {

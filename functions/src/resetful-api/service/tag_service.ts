@@ -4,7 +4,6 @@
 import { BadRequestRestException, NotFoundRestException } from '../../helper/error_exceptions'
 const pick = require('lodash/pick')
 const TagRepository = require('../repository/tag_repository')
-const TagOnTaskRepository = require('../repository/tag_task_repository')
 
 class TagService {
   static async getTagList() {
@@ -35,21 +34,9 @@ class TagService {
     await TagRepository.delete(id)
   }
 
-  static async assignTag(dto: { tag_id: number; task_id: number }) {
-    const res = await TagOnTaskRepository.create(dto.tag_id, dto.task_id)
-    if (!res) throw new BadRequestRestException('Tag assignment')
-    return res
-  }
-
-  static async unassignTag(dto: { tag_id: number; task_id: number }) {
-    const res = await TagOnTaskRepository.delete(dto.tag_id, dto.task_id)
-    if (!res) throw new BadRequestRestException('Tag assignment')
-    return res
-  }
-
-  static async unassignTagByTask(task_id: number) {
-    return await TagOnTaskRepository.deleteByTask(task_id)
-  }
+  // static async unassignTagByTask(task_id: number) {
+  //   return await TagOnTaskRepository.deleteByTask(task_id)
+  // }
 }
 
 module.exports = TagService
