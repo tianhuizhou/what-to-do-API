@@ -44,4 +44,4 @@ app.use(error_handler)
 export const api = functions.https.onRequest(app)
 
 // Firestore function events
-exports.UserCollection = require('./firestore-lifecycle/user_collection')
+exports.OAuthService = require('./firestore-lifecycle/oauth_service')

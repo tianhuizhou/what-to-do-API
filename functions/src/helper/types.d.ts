@@ -26,7 +26,7 @@ declare interface TaskModel {
 }
 
 declare interface UserModel {
-  uid?: string
+  uid: string
   email: string
   name: string
 }

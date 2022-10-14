@@ -42,7 +42,7 @@ model Task {
   priority    String?
   description String?   @db.VarChar(255) @default("")
   tags        TagsOnTasks[]
-  users       TaskAssignedUser[]
+  users       User[]
   board       Board     @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   board_id    Int
   estimated_time String @db.VarChar(255) @default("")
@@ -72,15 +72,7 @@ model User {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(255)
   email       String    @db.VarChar(255)
-  user_uid    Int
-  tasks       TaskAssignedUser[]
-}
-
-model TaskAssignedUser {
-  task        Task      @relation(fields: [task_id], references: [id])
-  task_id      Int
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id      Int
-
-  @@id([task_id, user_id])
+  user_uid    String    @db.VarChar(255) @unique
+  photo_b64   String    @db.Text @default("")
+  tasks       Task[]
 }
