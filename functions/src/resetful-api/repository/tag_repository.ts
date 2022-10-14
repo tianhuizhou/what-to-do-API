@@ -7,6 +7,16 @@ class TagRepository {
     return await prisma.tag.findMany({})
   }
 
+  static async findAllByQuery(query: string) {
+    return await prisma.tag.findMany({
+      where: {
+        name: {
+          contains: query,
+        },
+      },
+    })
+  }
+
   static async findById(tag_id: number) {
     return await prisma.tag.findUnique({
       where: {

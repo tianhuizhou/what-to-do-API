@@ -18,6 +18,7 @@ class ProjectRepository {
             tasks: {
               include: {
                 tags: true,
+                users: true,
               },
             },
           },

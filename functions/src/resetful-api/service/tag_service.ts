@@ -6,7 +6,8 @@ const pick = require('lodash/pick')
 const TagRepository = require('../repository/tag_repository')
 
 class TagService {
-  static async getTagList() {
+  static async getTagList(query?: string) {
+    if (query) return await TagRepository.findAllByQuery(query)
     return await TagRepository.findAll()
   }
 
@@ -33,10 +34,6 @@ class TagService {
   static async deleteTag(id: number) {
     await TagRepository.delete(id)
   }
-
-  // static async unassignTagByTask(task_id: number) {
-  //   return await TagOnTaskRepository.deleteByTask(task_id)
-  // }
 }
 
 module.exports = TagService

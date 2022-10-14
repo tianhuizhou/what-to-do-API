@@ -6,7 +6,8 @@ const TagService = require('../service/tag_service')
 /* GET */
 // Get all tags
 tag_router.route('/').get(async (req: Request, res: Response) => {
-  const tag_list = await TagService.getTagList()
+  const name_query = req.query?.name ?? ''
+  const tag_list = await TagService.getTagList(String(name_query))
   res.status(200).json({ 'data': tag_list })
 })
 
