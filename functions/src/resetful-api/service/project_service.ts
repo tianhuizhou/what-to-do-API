@@ -5,6 +5,7 @@ import { BadRequestRestException, NotFoundRestException } from '../../helper/err
 const ProjectRepository = require('../repository/project_repository')
 const pick = require('lodash/pick')
 const firestore = require('firebase-admin').firestore()
+const functions = require('firebase-functions')
 
 class ProjectService {
   static async getProjectList() {
@@ -28,6 +29,12 @@ class ProjectService {
     const project = await ProjectRepository.create(payload)
     if (!project) throw new BadRequestRestException('Project')
     await ProjectService.upsertFirebaseProject(project.id)
+      .then(() => {
+        functions.logger.log('upsertFirebaseProject successfully')
+      })
+      .catch(() => {
+        functions.logger.log('upsertFirebaseProject failed')
+      })
     return project
   }
 
