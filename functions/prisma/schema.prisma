@@ -45,8 +45,8 @@ model Task {
   users       User[]
   board       Board     @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   board_id    Int
-  estimated_time String @db.VarChar(255) @default("")
-  due_date    String    @db.VarChar(255) @default("")
+  estimated_time Int?   @default(0)
+  due_date    String?   @default("")
   is_completed Boolean  @default(false)
   created_at  DateTime  @default(now())
   updated_at  DateTime? @updatedAt

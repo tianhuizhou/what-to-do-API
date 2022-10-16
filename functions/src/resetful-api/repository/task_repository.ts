@@ -32,7 +32,7 @@ class TaskRepository {
     priority?: string
     description: string
     board_id: number
-    estimated_time: string
+    estimated_time: number
     due_date: string
     tags?: [{ 'id': number }]
   }) {
@@ -63,7 +63,7 @@ class TaskRepository {
       priority: string
       description: string
       board_id: number
-      estimated_time: string
+      estimated_time: number
       due_date: string
       tags: { set: [{ id: number }] }
     }>,

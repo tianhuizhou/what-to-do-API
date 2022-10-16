@@ -23,7 +23,7 @@ class TaskService {
     priority?: string
     description: string
     board_id: number
-    estimated_time: string
+    estimated_time: number
     due_date: string
   }) {
     const payload = pick(dto, ['name', 'priority', 'description', 'board_id', 'estimated_time', 'due_date'])
@@ -43,7 +43,7 @@ class TaskService {
       name: string
       priority: string
       description: string
-      estimated_time: string
+      estimated_time: number
       due_date: string
       is_completed: boolean
       tags: [{ id: number }]
