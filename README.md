@@ -5,6 +5,19 @@ Frontend(Project management system): <a> https://github.com/tianhuizhou/what-to-
 
 <hr />
 
+## Upcoming changes:
+The current implementation end up with a poor efficiency, the major two problems are:
+
+1. <strong>Cold start</strong>: Since the backend architecture is built on top of GCP cloud functions, there is a cold-start.
+2. <strong>The average time of REST endpoints are too long</strong>: Some endpoints could be simplified by splitting their tasks and scheduling background workers to execute partial code asynchronously. So server can respond requests earlier to reduce the blocking time for users.
+
+<strong>What I will do</strong>:
+
+* I will start a new repository to refactor the project with new architecture(ex. WebSocket) to improve performance.
+* Containerize the application by using Docker for a better DevOps experience.
+* Migrating from GCP to AWS (Just my preference).
+
+<hr />
 ### Tech stack:
 * <strong> Node.js (Express.js) </strong>
 
